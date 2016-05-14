@@ -1,0 +1,27 @@
+Concept
+=======
+
+Folders and Files which should be backed up are specified in a _json_
+configuration file. Every entry has a name. The name is used as wrapping folder
+for single files and ignored for backup folders (still can be used as
+documentation). When the backup process is started all the entries are
+parsed and then a robocopy process is started for every entry. After the
+backups have finished a summary with possible errors is shown.
+
+== Configuration file
+[source, json]
+----
+{[
+    { "<name>", "<path_to_file_folder>", ["<exlude_files_folders>"]}
+]}
+----
+
+== Data Types
+
+|===
+| Type | Description
+
+| backup.Element
+| Represents a file or folder which should be backed up.
+|===
+
