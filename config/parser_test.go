@@ -41,4 +41,8 @@ func TestLoad(t *testing.T) {
 	if config.Groups[0].Elements[0].Name != "A" {
 		t.Error("Invalid element name: ", config.Groups[0].Elements[0].Name)
 	}
+
+	if config.Groups[0].Elements[0].Path != "F:/Temp/a.txt" {
+		t.Error("Invalid element path: ", config.Groups[0].Elements[0].Path)
+	}
 }
