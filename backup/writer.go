@@ -27,27 +27,28 @@ func writeElement(e Element, path string) error {
 	}
 
 	ext := filepath.Ext(e.Path)
-	// Source folder
-	var folder = e.Path
-	// Source file (if existing)
-	var file = ""
+
+	var cmd *exec.Cmd
 	if ext != "" {
-		folder = filepath.Dir(e.Path)
-		file = filepath.Base(e.Path)
+		// Handle file
+		folder := filepath.Dir(e.Path)
+		file := filepath.Base(e.Path)
+
+		cmd = exec.Command(
+			"robocopy",
+			"/COPY:DAT",
+			folder,
+			fmt.Sprintf("%s/%s/", path, e.Name),
+			file)
+	} else {
+		// Handle folder
+		cmd = exec.Command(
+			"robocopy",
+			"/MIR",
+			"/COPY:DAT",
+			e.Path,
+			fmt.Sprintf("%s/%s/", path, e.Name))
 	}
-
-	cmd := exec.Command(
-		"robocopy",
-		"/tee",
-		"/MIR",
-		"/COPY:DAT",
-		folder,
-		fmt.Sprintf("%s/%s/", path, e.Name),
-		file)
-
-	fmt.Println(folder)
-	fmt.Println(fmt.Sprintf("%s/%s/", path, e.Name))
-	fmt.Println(file)
 
 	var outErr bytes.Buffer
 	cmd.Stderr = &outErr
