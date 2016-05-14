@@ -2,19 +2,30 @@ Concept
 =======
 
 Folders and Files which should be backed up are specified in a _json_
-configuration file. Every entry has a name. The name is used as wrapping folder
-for single files and ignored for backup folders (still can be used as
-documentation). When the backup process is started all the entries are
-parsed and then a robocopy process is started for every entry. After the
-backups have finished a summary with possible errors is shown.
+configuration file. Every entry has a name. The name is used as wrapping
+folder.  When the backup process is started all the entries are parsed and then
+a robocopy process is started for every entry. After the backups have finished
+a summary with possible errors is shown.
 
 == Configuration file
 [source, json]
 ----
-{[
-    { "<name>", "<path_to_file_folder>", ["<exlude_files_folders>"]}
-]}
+[
+    {
+        "folder": "C:/Temp/destination",
+        "elements": [
+            {
+                "name": "A",
+                "path": "C:/Temp/source/a.txt",
+                "excludes": []
+            }
+        ]
+    }
+]
 ----
+
+This creates a backup of `a.txt` in `C:/Temp/source` and saves it in
+`C:/Temp/destination/A/a.txt`.
 
 == Data Types
 
@@ -23,5 +34,8 @@ backups have finished a summary with possible errors is shown.
 
 | backup.Element
 | Represents a file or folder which should be backed up.
+
+| backup.Group
+| A group of backup elements which should be put together in the same folder.
 |===
 

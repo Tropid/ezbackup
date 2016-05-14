@@ -1,0 +1,12 @@
+[
+    {
+        "folder": "F:/Temp/b",
+        "elements": [
+            {
+                "name": "A",
+                "path": "F:/Temp/a/a.txt",
+                "excludes": []
+            }
+        ]
+    }
+]
